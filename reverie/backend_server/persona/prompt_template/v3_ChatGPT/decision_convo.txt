@@ -1,0 +1,26 @@
+decision_convo.txt
+
+Variables: 
+!<INPUT 0>! -- theme
+!<INPUT 1>! -- current convo
+!<INPUT 2>! -- agents thoughts
+<commentblockmarker>###</commentblockmarker>
+Context for the task: 
+
+PART 1. 
+A group of agents are having a conversation about !<INPUT 0>!
+
+Here is how the conversation is going so far: 
+!<INPUT 1>!
+
+---
+Task: Looking at how the conversation is going, choose one of the following to keep up with the conversation, and decide wether the conversation has finished or not with such response:
+
+Possible responses to the conversation:
+!<INPUT 2>!
+
+Output format: Output a json of the following format: 
+{
+"<agent>": "agents's utterance>",
+"Did the conversation end": "<json Boolean>"
+}

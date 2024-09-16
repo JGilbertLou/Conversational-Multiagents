@@ -1,0 +1,43 @@
+generate_emotional_chat_utt.txt
+
+Variables: 
+!<INPUT 0>! -- initial phrase
+!<INPUT 1>! -- agent name
+!<INPUT 2>! -- agent ISS 
+!<INPUT 3>! -- agent name 
+!<INPUT 4>! -- relationship 
+!<INPUT 5>! -- current convo 
+!<INPUT 8>! -- agent name
+!<INPUT 7>! -- agent memories
+!<INPUT 8>! -- task question
+!<INPUT 9>! -- agent name 
+!<INPUT 10>! -- agent emotions
+!<INPUT 11>! -- agent name
+<commentblockmarker>###</commentblockmarker>
+Context for the task: 
+
+PART 1. 
+!<INPUT 0>!
+
+This is a brief description of !<INPUT 1>!
+!<INPUT 2>!
+
+This is brief description of the rest of the people in the conversation, and their relationship with !<INPUT 3>!:
+!<INPUT 4>!
+
+This is how the conversation is going:
+!<INPUT 5>!
+
+This is the most relevant information retreived from !<INPUT 6>! memory
+!<INPUT 7>!
+
+---
+TasK: Given the above, !<INPUT 8>!
+
+Take into consideration that !<INPUT 9>! is feeling !<INPUT 10>! right now. 
+
+Output format in case it says something: Output a json of the following format: 
+{
+    "!<INPUT 11>!": "<utterance>"
+    "Did the conversation end": "<json Boolean>"
+}

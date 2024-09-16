@@ -1,0 +1,15 @@
+question_classifier.txt
+
+!<INPUT 0>! -- date and time
+<commentblockmarker>###</commentblockmarker>
+
+INPUT:
+!<INPUT 0>!
+
+---
+TasK: Given the above, return an output on a json format indicating if the input is a question.
+
+Output format: 
+{
+    "question": "<json Boolean>"
+}

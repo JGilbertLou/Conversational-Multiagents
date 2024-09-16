@@ -236,7 +236,11 @@ class Persona:
     
 
 
-
+  def one_v_one_session(self, persona):
+    return agent_chat_v3(self, persona)
+  
+  def extract_memories(self, focal_points):
+    new_retrieve_2 (self, focal_points)
 
 
 

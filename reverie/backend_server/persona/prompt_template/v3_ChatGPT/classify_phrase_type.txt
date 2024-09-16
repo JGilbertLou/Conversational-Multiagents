@@ -1,0 +1,245 @@
+classify_phrase_type.txt
+
+Variables: 
+!<INPUT 0>! -- date and time
+!<INPUT 1>! -- conversation
+<commentblockmarker>###</commentblockmarker>
+Task description:
+Given a conversation, identify the main characteristics of the last phrase of the conversation. 
+
+Some useful considerations:
+- Personal should be filled if the last phrase directly mentions or addresses a specific individual in the conversation by name or pronoun (e.g., "What did you do today, Sarah?"). General group references like "everyone" should not trigger the "personal" field. By any chance it could be filled with the name of the person that said the last phrase.
+- Themed should be marked as True if the question or last phrase focuses on a specific, identifiable topic or subject matter (e.g., food, travel, work). It should be marked as False if the question is broad or general (e.g., "How have you been?") without a focused subject.
+- Time should be marked as True if the phrase refers to specific periods of the day (e.g., morning, evening) or refers to past events tied to a specific timeframe (e.g., "yesterday," "last week"). Future events must not be taken into consideration.
+- If the phrase refers to a recurring or latest time period (e.g., "morning routine") without specifying a particular day, assume a 7-day range for the time period.
+- Time periods such as "morning," "afternoon," and "evening" should be considered specific time references when used in questions. 
+
+The output format must be a json with the following structure:
+
+{
+"personal": "",
+"themed": "False",
+"time": "False",
+"initial-date": "",
+"final-date": "",
+"initial-hour": "",
+"final-hour": ""
+}
+
+-------------------------
+Examples of task resolution:
+
+EXAMPLE 1:
+
+INPUT:
+
+Date and time: 2023-05-15 08:21:00
+
+Mia: I went to that new farmers' market yesterday. It was huge! I didn’t expect to find so many local vendors with cool stuff.
+Nate: That sounds awesome! I’ve been wanting to check it out. Did you end up picking up anything interesting?
+Zara: I heard they have a great selection of fresh produce and handmade goods. I’ve been meaning to go for weeks.
+Mia: Yeah, I got some fresh veggies and a few homemade jams. The variety was impressive—everything from organic soaps to artisanal cheeses.
+Nate: I could definitely use some fresh produce. The stuff from the grocery store just doesn’t compare.
+Zara: I could really go for some of those homemade jams. How long does the market stay open for? Does anyone know if they have a closing date this season?
+
+OUPUT:
+
+{
+"personal": ""
+"themed": "True"
+"time": "False"
+"initial-date": "",
+"final-date": "",
+"initial-hour": "",
+"final-hour": ""
+}
+EXAMPLE 2:
+
+INPUT:
+
+Date and time: 2023-09-25 08:21:00
+
+Jake Thompson: Hello everyone! I am so excited that the charity run at Riverside Park is finally happening. Sarah, you’ve been such a big help with the preparations—are you ready for the big day tomorrow?
+
+OUPUT:
+
+{
+"personal": "Sarah",
+"themed": "True",
+"time": "True",
+"initial-date": "2023-09-26",
+"final-date": "2023-09-26",
+"initial-hour": "00:00:00",
+"final-hour": "23:59:00"
+}
+
+EXAMPLE 3:
+
+INPUT:
+
+Date and time: 2023-01-19 05:36:00
+
+Lily: Yesterday morning, I went outside and had my coffee on the porch instead of rushing through it inside. It felt so good to just slow down and enjoy the quiet.
+Ben: That sounds peaceful. I’m usually in such a rush in the mornings that I’m barely awake by the time I get to work.
+Rachel: Same here. I always think I’ll take a few minutes for myself in the morning, but then I end up just scrambling to get out the door on time.
+Tyler: I hear you. I’ve tried setting my alarm earlier to squeeze in some downtime, but somehow I always snooze it and lose those extra minutes.
+Lily: I’ve been guilty of that too. But honestly, just stepping outside for a bit made my morning feel so much better. I think I’ll keep doing it.
+Ben: That sounds like a great way to start the day. What’s everyone’s usual morning routine been like lately?
+
+OUPUT:
+
+{
+"personal": "",
+"themed": "False",
+"time": "True",
+"initial-date": "",
+"final-date": "",
+"initial-hour": "05:00:00",
+"final-hour": "11:00:00"
+}
+
+EXAMPLE 4:
+
+INPUT:
+
+Date and time: 2023-12-24 18:45:00
+
+Emma: I’ve been trying to get back into a routine lately, but it’s been harder than I thought. Everything feels a bit off balance.
+Daniel: I get that. It’s like once you break the rhythm, it takes a while to find your footing again. I’ve been going through something similar.
+Emma: Yeah, exactly. It’s frustrating, but I know it’ll click again eventually. I just need to be patient with myself.
+Daniel: Definitely. What’s something you’ve focused on over the last few weeks?
+
+OUPUT:
+
+{
+"personal": "Emma",
+"themed": "False",
+"time": "False",
+"initial-date": "",
+"final-date": "",
+"initial-hour": "",
+"final-hour": ""
+}
+
+EXAMPLE 5:
+
+INPUT:
+
+Date and time: 2024-08-16 15:21:00
+
+Liam: Last night, I finally watched that documentary everyone’s been talking about. It was way more intense than I expected, but so interesting.
+Maya: Oh, I saw that a few nights ago! It really makes you think, right? I couldn’t stop talking about it afterward.
+Chris: I’ve been meaning to watch it too, but I keep putting it off. Maybe tonight’s the night I finally dive in.
+Liam: You should! It’s definitely worth it. I stayed up way later than planned, but I couldn’t stop once I started.
+Maya: Same here. I thought I’d watch just a bit before bed, but I ended up glued to the screen for the whole thing.
+Chris: Speaking of that, what have you guys been watching at night lately?
+
+{
+"personal": ""
+"themed": "True"
+"time": "True"
+"initial-date": "",
+"final-date": "",
+"initial-hour": "19:00:00",
+"final-hour": "23:59:00"
+}
+
+EXAMPLE 6:
+
+INPUT:
+
+Date and time: 2022-10-31 21:54:00
+
+Sophie: I’ve been thinking about taking up a new sport, maybe something like tennis or rock climbing. I feel like I need something active to break up my routine.
+Ben: That sounds awesome. Tennis is a lot of fun, plus it’s a great way to stay in shape. And rock climbing is such a challenge, but I’ve heard it’s super rewarding once you get the hang of it.
+Aiden: Both of those sound like a blast. I’ve tried tennis a few times, and it’s definitely a good workout. But rock climbing? That’s intense! I’ve always wanted to give it a shot.
+Rachel: I’ve been rock climbing a couple of times, and it’s such an adrenaline rush! Once you reach the top, you feel like you’ve really accomplished something.
+Sophie: That sounds awesome! Where do you go to practice rock climbing? Do you think I could jump right in?
+
+OUPUT:
+
+{
+"personal": "Rachel"
+"themed": "True"
+"time": "False"
+"initial-date": "",
+"final-date": "",
+"initial-hour": "",
+"final-hour": ""
+}
+
+EXAMPLE 7:
+
+INPUT:
+
+Date and time: 2023-03-19 15:07:00
+
+Mia: Yesterday, I finally started meal prepping for the week. It took some time, but I think it’ll make things so much easier during the week.
+Sam: That’s smart! I’ve been meaning to do that for ages, but I always put it off. It must feel nice knowing you’ve got everything ready to go.
+Alex: Yeah, meal prepping is a game changer. It saves so much time and stress during the week, especially when you don’t have the energy to cook every night.
+Mia: Exactly! It took a few hours, but now I don’t have to think about what I’m going to eat for lunch or dinner. I’m hoping it helps me stay on track with eating better too.
+Sam: I can imagine. What did you end up making yesterday?
+
+OUPUT:
+
+{
+"personal": "Mia"
+"themed": "True"
+"time": "True"
+"initial-date": "2023-03-18",
+"final-date": "2023-03-18",
+"initial-hour": "00:00:00",
+"final-hour": "23:59:00"
+}
+
+EXAMPLE 8: 
+
+INPUT:
+
+Date and time: 2023-01-15 08:24:10
+
+Sarah: After the meeting yesterday, I was really in the mood for tacos, but I couldn’t think of a good spot nearby. I just ended up grabbing a sandwich instead.
+Tom: That’s the worst! When you have a craving for something, and you can’t figure out where to go, it’s like nothing else hits the spot.
+Ava: Yeah, I’ve been there. There’s a bunch of taco places, but half the time, I can’t remember which ones are actually worth the trip.
+Sarah: Exactly! I don’t want to settle for just okay tacos. Do you guys know any good spots around here for tacos?
+
+OUPUT:
+
+{
+"personal": ""
+"themed": "True"
+"time": "False"
+"initial-date": "",
+"final-date": "",
+"initial-hour": "",
+"final-hour": ""
+}
+
+EXAMPLE 9: 
+
+INPUT:
+
+Date and time: 2021-09-21 13:27:10
+
+Jake Thompson: Hello everyone! I’m really excited that we’re all getting together soon. It feels like forever since we’ve all been in the same place—how’s everyone been doing?
+
+OUPUT:
+
+{
+"personal": ""
+"themed": "False"
+"time": "False"
+"initial-date": "",
+"final-date": "",
+"initial-hour": "",
+"final-hour": ""
+}
+
+
+
+-------------------------
+Task INPUT:
+
+Date and time: !<INPUT 0>!
+
+!<INPUT 1>!

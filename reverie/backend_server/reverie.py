@@ -34,6 +34,8 @@ from global_methods import *
 from utils import *
 from maze import *
 from persona.persona import *
+from persona.prompt_template.gpt_structure import *
+from persona.cognitive_modules.converse import *
 
 ##############################################################################
 #                                  REVERIE                                   #
@@ -49,13 +51,12 @@ class ReverieServer:
     # simulation, where the first simulation is "hand-crafted".
     self.fork_sim_code = fork_sim_code
     fork_folder = f"{fs_storage}/{self.fork_sim_code}"
-
     # <sim_code> indicates our current simulation. The first step here is to 
     # copy everything that's in <fork_sim_code>, but edit its 
     # reverie/meta/json's fork variable. 
     self.sim_code = sim_code
     sim_folder = f"{fs_storage}/{self.sim_code}"
-    copyanything(fork_folder, sim_folder)
+    #copyanything(fork_folder, sim_folder)
 
     with open(f"{sim_folder}/reverie/meta.json") as json_file:  
       reverie_meta = json.load(json_file)
@@ -63,6 +64,7 @@ class ReverieServer:
     with open(f"{sim_folder}/reverie/meta.json", "w") as outfile: 
       reverie_meta["fork_sim_code"] = fork_sim_code
       outfile.write(json.dumps(reverie_meta, indent=2))
+
 
     # LOADING REVERIE'S GLOBAL VARIABLES
     # The start datetime of the Reverie: 
@@ -121,37 +123,20 @@ class ReverieServer:
     # Loading in all personas. 
     init_env_file = f"{sim_folder}/environment/{str(self.step)}.json"
     init_env = json.load(open(init_env_file))
-    for persona_name in reverie_meta['persona_names']: 
-      persona_folder = f"{sim_folder}/personas/{persona_name}"
-      p_x = init_env[persona_name]["x"]
-      p_y = init_env[persona_name]["y"]
-      curr_persona = Persona(persona_name, persona_folder)
+    print(init_env)
 
-      self.personas[persona_name] = curr_persona
-      self.personas_tile[persona_name] = (p_x, p_y)
-      self.maze.tiles[p_y][p_x]["events"].add(curr_persona.scratch
-                                              .get_curr_event_and_desc())
+    for agent_name in reverie_meta['persona_names']: 
+      persona_folder = f"{sim_folder}/personas/{agent_name}"
+      p_x = init_env[agent_name]["x"]
+      p_y = init_env[agent_name]["y"]
+      curr_persona = Persona(agent_name, persona_folder)
+
+      self.personas[agent_name] = curr_persona
 
     # REVERIE SETTINGS PARAMETERS:  
     # <server_sleep> denotes the amount of time that our while loop rests each
     # cycle; this is to not kill our machine. 
     self.server_sleep = 0.1
-
-    # SIGNALING THE FRONTEND SERVER: 
-    # curr_sim_code.json contains the current simulation code, and
-    # curr_step.json contains the current step of the simulation. These are 
-    # used to communicate the code and step information to the frontend. 
-    # Note that step file is removed as soon as the frontend opens up the 
-    # simulation. 
-    curr_sim_code = dict()
-    curr_sim_code["sim_code"] = self.sim_code
-    with open(f"{fs_temp_storage}/curr_sim_code.json", "w") as outfile: 
-      outfile.write(json.dumps(curr_sim_code, indent=2))
-    
-    curr_step = dict()
-    curr_step["step"] = self.step
-    with open(f"{fs_temp_storage}/curr_step.json", "w") as outfile: 
-      outfile.write(json.dumps(curr_step, indent=2))
 
 
   def save(self): 
@@ -185,7 +170,6 @@ class ReverieServer:
     for persona_name, persona in self.personas.items(): 
       save_folder = f"{sim_folder}/personas/{persona_name}/bootstrap_memory"
       persona.save(save_folder)
-
 
   def start_path_tester_server(self): 
     """
@@ -275,6 +259,57 @@ class ReverieServer:
 
       time.sleep(self.server_sleep * 10)
 
+  def start_server_conversation(self, int_counter):
+    while (True): 
+      # Done with this iteration if <int_counter> reaches 0. 
+      if int_counter == 0: 
+        break
+
+      movements = {"persona": dict(), 
+                       "meta": dict()}
+      for persona_name, persona in self.personas.items(): 
+        # <next_tile> is a x,y coordinate. e.g., (58, 9)
+        # <pronunciatio> is an emoji. e.g., "\ud83d\udca4"
+        # <description> is a string description of the movement. e.g., 
+        #   writing her next novel (editing her novel) 
+        #   @ double studio:double studio:common room:sofa
+        next_tile, pronunciatio, description = persona.move(
+          self.maze, self.personas, self.personas_tile[persona_name], 
+          self.curr_time)
+        movements["persona"][persona_name] = {}
+        movements["persona"][persona_name]["pronunciatio"] = pronunciatio
+        movements["persona"][persona_name]["description"] = description
+        movements["persona"][persona_name]["chat"] = (persona
+                                                      .scratch.chat)
+
+      # Include the meta information about the current stage in the 
+      # movements dictionary. 
+      movements["meta"]["curr_time"] = (self.curr_time 
+                                          .strftime("%B %d, %Y, %H:%M:%S"))
+
+      # We then write the personas' movements to a file that will be sent 
+      # to the frontend server. 
+      # Example json output: 
+      # {"persona": {"Maria Lopez": {"movement": [58, 9]}},
+      #  "persona": {"Klaus Mueller": {"movement": [38, 12]}}, 
+      #  "meta": {curr_time: <datetime>}}
+      curr_move_path = "f{sim_folder}/movement"
+      if not os.path.exists(curr_move_path):
+        os.makedirs(curr_move_path)
+        
+      curr_move_file = f"{sim_folder}/movement/{self.step}.json"
+      with open(curr_move_file, "w") as outfile: 
+        outfile.write(json.dumps(movements, indent=2))
+
+      # After this cycle, the world takes one step forward, and the 
+      # current time moves by <sec_per_step> amount. 
+      self.step += 1
+      self.curr_time += datetime.timedelta(seconds=self.sec_per_step)
+
+      int_counter -= 1
+          
+      # Sleep so we don't burn our machines. 
+    time.sleep(self.server_sleep)
 
   def start_server(self, int_counter): 
     """
@@ -397,6 +432,10 @@ class ReverieServer:
           # {"persona": {"Maria Lopez": {"movement": [58, 9]}},
           #  "persona": {"Klaus Mueller": {"movement": [38, 12]}}, 
           #  "meta": {curr_time: <datetime>}}
+          curr_move_path = "f{sim_folder}/movement"
+          if not os.path.exists(curr_move_path):
+            os.makedirs(curr_move_path)
+            
           curr_move_file = f"{sim_folder}/movement/{self.step}.json"
           with open(curr_move_file, "w") as outfile: 
             outfile.write(json.dumps(movements, indent=2))
@@ -410,7 +449,6 @@ class ReverieServer:
           
       # Sleep so we don't burn our machines. 
       time.sleep(self.server_sleep)
-
 
   def open_server(self): 
     """
@@ -441,6 +479,10 @@ class ReverieServer:
           # Example: fin
           self.save()
           break
+        elif "1v1" in sim_command.lower():
+          print(self.personas["Isabella Rodriguez"].scratch.name)
+          print(self.personas["Klaus Mueller"].scratch.name)
+          print(self.personas["Isabella Rodriguez"].one_v_one_session(self.personas["Klaus Mueller"]))
 
         elif sim_command.lower() == "start path tester mode": 
           # Starts the path tester and removes the currently forked sim files.
@@ -492,7 +534,7 @@ class ReverieServer:
           # Ex: print persona schedule Isabella Rodriguez
           ret_str += (self.personas[" ".join(sim_command.split()[-2:])]
                       .scratch.get_str_daily_schedule_hourly_org_summary())
-
+      
         elif ("print persona current tile" 
               in sim_command[:26].lower()): 
           # Print the x y tile coordinate of the persona specified in the 
@@ -596,69 +638,30 @@ class ReverieServer:
         traceback.print_exc()
         print ("Error.")
         pass
-
-
+  
 if __name__ == '__main__':
-  # rs = ReverieServer("base_the_ville_isabella_maria_klaus", 
+  rs = ReverieServer("July1_the_ville_isabella_maria_klaus-step-3-21", 
+                     "s13")
+  
+  for persona in rs.personas.values():
+    print(persona.name)
+    persona.extract_memories(["Hey everyone! I'm so excited that the Valentine's Day party is finally here at Hobbs Cafe. I've been working hard to make everything special for tonight. Are you both ready to celebrate love with some good food and fun activities?"])
+  #rs = ReverieServer("base_the_ville_isabella_maria_klaus", 
   #                    "July1_the_ville_isabella_maria_klaus-step-3-1")
   # rs = ReverieServer("July1_the_ville_isabella_maria_klaus-step-3-20", 
   #                    "July1_the_ville_isabella_maria_klaus-step-3-21")
   # rs.open_server()
 
-  origin = input("Enter the name of the forked simulation: ").strip()
-  target = input("Enter the name of the new simulation: ").strip()
 
-  rs = ReverieServer(origin, target)
-  rs.open_server()
+  # origin = input("Enter the name of the forked simulation: ").strip()
+  # target = input("Enter the name of the new simulation: ").strip()
 
+  # rs = ReverieServer(origin, target)
 
+  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  #print(rs.personas)
+  #agent_chat_v4(rs.personas, 5)
+  
+  #rs.open_server()

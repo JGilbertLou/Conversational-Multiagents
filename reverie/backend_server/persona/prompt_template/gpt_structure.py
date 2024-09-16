@@ -71,7 +71,7 @@ def ChatGPT_request(prompt):
   # temp_sleep()
   try: 
     completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
+    model="gpt-4o-mini", 
     messages=[{"role": "user", "content": prompt}]
     )
     return completion["choices"][0]["message"]["content"]
@@ -134,9 +134,9 @@ def ChatGPT_safe_generate_response(prompt,
   prompt += "Example output json:\n"
   prompt += '{"output": "' + str(example_output) + '"}'
 
-  if verbose: 
-    print ("CHAT GPT PROMPT")
-    print (prompt)
+  #if verbose: 
+    #print ("CHAT GPT PROMPT")
+    #print (prompt)
 
   for i in range(repeat): 
 
@@ -153,10 +153,10 @@ def ChatGPT_safe_generate_response(prompt,
       if func_validate(curr_gpt_response, prompt=prompt): 
         return func_clean_up(curr_gpt_response, prompt=prompt)
       
-      if verbose: 
-        print ("---- repeat count: \n", i, curr_gpt_response)
-        print (curr_gpt_response)
-        print ("~~~~")
+      #if verbose: 
+        #print ("---- repeat count: \n", i, curr_gpt_response)
+        #print (curr_gpt_response)
+       # print ("~~~~")
 
     except: 
       pass
@@ -184,7 +184,8 @@ def ChatGPT_safe_generate_response_OLD(prompt,
         print (curr_gpt_response)
         print ("~~~~")
 
-    except: 
+    except Exception as e: 
+      print(f"Exception occurred: {e}")
       pass
   print ("FAIL SAFE TRIGGERED") 
   return fail_safe_response
@@ -219,8 +220,8 @@ def GPT_request(prompt, gpt_parameter):
                 stream=gpt_parameter["stream"],
                 stop=gpt_parameter["stop"],)
     return response.choices[0].text
-  except: 
-    print ("TOKEN LIMIT EXCEEDED")
+  except Exception as e: 
+    print(f"Exception occurred: {e}")
     return "TOKEN LIMIT EXCEEDED"
 
 

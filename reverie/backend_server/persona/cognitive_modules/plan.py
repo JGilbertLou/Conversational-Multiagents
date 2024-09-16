@@ -865,6 +865,7 @@ def _chat_react(maze, persona, focused_event, reaction_mode, personas):
   curr_personas = [init_persona, target_persona]
 
   # Actually creating the conversation here. 
+  
   convo, duration_min = generate_convo(maze, init_persona, target_persona)
   convo_summary = generate_convo_summary(init_persona, convo)
   inserted_act = convo_summary

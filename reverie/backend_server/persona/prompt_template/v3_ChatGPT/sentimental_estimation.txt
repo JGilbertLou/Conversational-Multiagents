@@ -1,0 +1,18 @@
+sentimental_estimation.txt
+
+!<INPUT 1>!: emotions
+!<INPUT 0>!: phrase
+
+<commentblockmarker>###</commentblockmarker>
+Analyze the following phrase and determine the emotion it expresses. 
+
+!<INPUT 0>!
+---------------------------
+TasK
+From this list, !<INPUT 1>! choose the emotion that describres better the phrase and express how certain you are about it.
+
+Output format in case it says something: Output a json of the following format: 
+{
+    "emotion": "<emotion>"
+    "certainty": <float>
+}

@@ -66,7 +66,7 @@ def run_gpt_prompt_wake_up_hour(persona, test_input=None, verbose=False):
     fs = 8
     return fs
 
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 5, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 5, 
              "temperature": 0.8, "top_p": 1, "stream": False,
              "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   prompt_template = "persona/prompt_template/v2/wake_up_hour_v1.txt"
@@ -138,7 +138,7 @@ def run_gpt_prompt_daily_plan(persona,
 
 
   
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 500, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 500, 
                "temperature": 1, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/daily_planning_v6.txt"
@@ -244,7 +244,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   #   return True
 
   # print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 10") ########
-  # gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v3_ChatGPT/generate_hourly_schedule_v2.txt" ########
@@ -265,7 +265,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   # # ChatGPT Plugin ===========================================================
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0.5, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   prompt_template = "persona/prompt_template/v2/generate_hourly_schedule_v2.txt"
@@ -426,7 +426,7 @@ def run_gpt_prompt_task_decomp(persona,
     fs = ["asleep"]
     return fs
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 1000, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 1000, 
              "temperature": 0, "top_p": 1, "stream": False,
              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/task_decomp_v3.txt"
@@ -583,7 +583,7 @@ def run_gpt_prompt_action_sector(action_description,
   #   return True 
 
   # print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 20") ########
-  # gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v3_ChatGPT/action_location_sector_v2.txt" ########
@@ -602,7 +602,7 @@ def run_gpt_prompt_action_sector(action_description,
 
 
 
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v1/action_location_sector_v1.txt"
@@ -699,7 +699,7 @@ def run_gpt_prompt_action_arena(action_description,
     fs = ("kitchen")
     return fs
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v1/action_location_object_vMar11.txt"
@@ -755,7 +755,7 @@ def run_gpt_prompt_action_game_object(action_description,
     fs = ("bed")
     return fs
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v1/action_object_v2.txt"
@@ -825,7 +825,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
     return True
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 4") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/generate_pronunciatio_v1.txt" ########
@@ -844,7 +844,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 15, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   # prompt_template = "persona/prompt_template/v2/generate_pronunciatio_v1.txt"
@@ -915,7 +915,7 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
   #   return True 
 
   # print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 5") ########
-  # gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v3_ChatGPT/generate_event_triple_v1.txt" ########
@@ -933,7 +933,7 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
 
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 30, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 30, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   prompt_template = "persona/prompt_template/v2/generate_event_triple_v1.txt"
@@ -1001,7 +1001,7 @@ def run_gpt_prompt_act_obj_desc(act_game_object, act_desp, persona, verbose=Fals
     return True 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 6") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/generate_obj_event_v1.txt" ########
@@ -1018,7 +1018,7 @@ def run_gpt_prompt_act_obj_desc(act_game_object, act_desp, persona, verbose=Fals
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 30, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 30, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   # prompt_template = "persona/prompt_template/v2/generate_obj_event_v1.txt"
@@ -1066,7 +1066,7 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
     fs = (act_game_object, "is", "idle")
     return fs
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 30, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 30, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   prompt_template = "persona/prompt_template/v2/generate_event_triple_v1.txt"
@@ -1206,7 +1206,7 @@ def run_gpt_prompt_new_decomp_schedule(persona,
 
     return ret
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 1000, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 1000, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/new_decomp_schedule_v1.txt"
@@ -1320,7 +1320,7 @@ def run_gpt_prompt_decide_to_talk(persona, target_persona, retrieved,test_input=
 
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 20, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 20, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/decide_to_talk_v2.txt"
@@ -1418,7 +1418,7 @@ def run_gpt_prompt_decide_to_react(persona, target_persona, retrieved,test_input
     return fs
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 20, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 20, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/decide_to_react_v1.txt"
@@ -1561,7 +1561,7 @@ def run_gpt_prompt_create_conversation(persona, target_persona, curr_loc,
     return convo
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 1000, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 1000, 
                "temperature": 0.7, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/create_conversation_v2.txt"
@@ -1626,15 +1626,15 @@ def run_gpt_prompt_summarize_conversation(persona, conversation, test_input=None
 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 11") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/summarize_conversation_v1.txt" ########
   prompt_input = create_prompt_input(conversation, test_input)  ########
   prompt = generate_prompt(prompt_input, prompt_template)
   example_output = "conversing about what to eat for lunch" ########
-  special_instruction = "The output must continue the sentence above by filling in the <fill in> tag. Don't start with 'this is a conversation about...' Just finish the sentence but do not miss any important details (including who are chatting)." ########
-  fail_safe = get_fail_safe() ########
+  special_instruction = "The output must continue the sentence above by filling in the <fill in> tag. Don't start with 'this is a conversation about...' sh the sentence but do not miss any important details (including who are chatting)." ########
+  fail_safe = get_fail_safe() ########Just fini
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
   if output != False: 
@@ -1642,7 +1642,7 @@ def run_gpt_prompt_summarize_conversation(persona, conversation, test_input=None
   # ChatGPT Plugin ===========================================================
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/summarize_conversation_v1.txt"
@@ -1696,7 +1696,7 @@ def run_gpt_prompt_extract_keywords(persona, description, test_input=None, verbo
   def get_fail_safe(): 
     return []
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/get_keywords_v1.txt"
@@ -1741,7 +1741,7 @@ def run_gpt_prompt_keyword_to_thoughts(persona, keyword, concept_summary, test_i
   def get_fail_safe(): 
     return ""
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 40, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 40, 
                "temperature": 0.7, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/keyword_to_thoughts_v1.txt"
@@ -1796,7 +1796,7 @@ def run_gpt_prompt_convo_to_thoughts(persona,
   def get_fail_safe(): 
     return ""
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 40, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 40, 
                "temperature": 0.7, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/convo_to_thoughts_v1.txt"
@@ -1879,7 +1879,7 @@ def run_gpt_prompt_event_poignancy(persona, event_description, test_input=None, 
       return False 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 7") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/poignancy_event_v1.txt" ########
@@ -1897,7 +1897,7 @@ def run_gpt_prompt_event_poignancy(persona, event_description, test_input=None, 
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 3, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 3, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/poignancy_event_v1.txt"
@@ -1950,7 +1950,7 @@ def run_gpt_prompt_thought_poignancy(persona, event_description, test_input=None
       return False 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 8") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/poignancy_thought_v1.txt" ########
@@ -1967,7 +1967,7 @@ def run_gpt_prompt_thought_poignancy(persona, event_description, test_input=None
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 3, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 3, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/poignancy_thought_v1.txt"
@@ -2022,7 +2022,7 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
       return False 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 9") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/poignancy_chat_v1.txt" ########
@@ -2040,7 +2040,7 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 3, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 3, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/poignancy_chat_v1.txt"
@@ -2098,7 +2098,7 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 12") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/generate_focal_pt_v1.txt" ########
@@ -2118,7 +2118,7 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
 
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 150, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 150, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/generate_focal_pt_v1.txt"
@@ -2169,7 +2169,7 @@ def run_gpt_prompt_insight_and_guidance(persona, statements, n, test_input=None,
 
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 150, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 150, 
                "temperature": 0.5, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/insight_and_evidence_v1.txt"
@@ -2225,7 +2225,7 @@ def run_gpt_prompt_agent_chat_summarize_ideas(persona, target_persona, statement
       return False 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 17") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/summarize_chat_ideas_v1.txt" ########
@@ -2242,7 +2242,7 @@ def run_gpt_prompt_agent_chat_summarize_ideas(persona, target_persona, statement
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 150, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 150, 
   #              "temperature": 0.5, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/summarize_chat_ideas_v1.txt"
@@ -2279,8 +2279,7 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
 
   def get_fail_safe(): 
     return "..."
-
-
+  
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
     return gpt_response.split('"')[0].strip()
@@ -2292,8 +2291,8 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
     except:
       return False 
 
-  print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 18") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  #print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 18") ########
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/summarize_chat_relationship_v2.txt" ########
@@ -2309,7 +2308,7 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
   # ChatGPT Plugin ===========================================================
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 150, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 150, 
   #              "temperature": 0.5, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/summarize_chat_relationship_v1.txt"
@@ -2326,9 +2325,49 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
   
   # return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
+def run_gpt_prompt_agent_chat_summarize_relationship_v2(agent_name, target_name, statements, test_input=None, verbose=False): 
+  def create_prompt_input(agent_name, target_name, statements, test_input=None): 
+    prompt_input = [statements, agent_name, target_name, agent_name, target_name]
+    return prompt_input
+  
+  def __func_clean_up(gpt_response, prompt=""):
+    return gpt_response.split('"')[0].strip()
 
+  def __func_validate(gpt_response, prompt=""): 
+    try: 
+      __func_clean_up(gpt_response, prompt)
+      return True
+    except:
+      return False 
 
+  def get_fail_safe(): 
+    return "..."
 
+  def __chat_func_clean_up(gpt_response, prompt=""): ############
+    return gpt_response.split('"')[0].strip()
+
+  def __chat_func_validate(gpt_response, prompt=""): ############
+    try: 
+      __func_clean_up(gpt_response, prompt)
+      return True
+    except:
+      return False 
+
+  #print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 18") ########
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
+               "temperature": 0, "top_p": 1, "stream": False,
+               "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
+  prompt_template = "persona/prompt_template/v3_ChatGPT/summarize_chat_relationship_v3.txt" ########
+  prompt_input = create_prompt_input(agent_name, target_name, statements)  ########
+  prompt = generate_prompt(prompt_input, prompt_template)
+  example_output = 'Jane Doe is working on a project' ########
+  special_instruction = 'The output should be a string that responds to the question.' ########
+  fail_safe = get_fail_safe() ########
+  output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
+                                          __chat_func_validate, __chat_func_clean_up, True)
+  if output != False: 
+    return output, [output, prompt, gpt_param, prompt_input, fail_safe]
+  
 
 def run_gpt_prompt_agent_chat(maze, persona, target_persona,
                                curr_context, 
@@ -2421,7 +2460,7 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
 
 
   # print ("HERE JULY 23 -- ----- ") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/agent_chat_v1.txt" ########
@@ -2442,7 +2481,7 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
 
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 2000, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 2000, 
   #              "temperature": 0.7, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/agent_chat_v1.txt"
@@ -2502,7 +2541,7 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
       return False 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 16") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 100, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/summarize_ideas_v1.txt" ########
@@ -2518,7 +2557,7 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
   # ChatGPT Plugin ===========================================================
 
 
-  # gpt_param = {"engine": "text-davinci-003", "max_tokens": 150, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 150, 
   #              "temperature": 0.5, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v2/summarize_ideas_v1.txt"
@@ -2576,7 +2615,7 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
   #     return False 
 
   # print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 15") ########
-  # gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  # gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
   #              "temperature": 0, "top_p": 1, "stream": False,
   #              "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   # prompt_template = "persona/prompt_template/v3_ChatGPT/generate_next_convo_line_v1.txt" ########
@@ -2593,7 +2632,7 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
 
 
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 250, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 250, 
                "temperature": 1, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/generate_next_convo_line_v1.txt"
@@ -2633,7 +2672,7 @@ def run_gpt_prompt_generate_whisper_inner_thought(persona, whisper, test_input=N
   def get_fail_safe(): 
     return "..."
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/whisper_inner_thought_v1.txt"
@@ -2670,7 +2709,7 @@ def run_gpt_prompt_planning_thought_on_convo(persona, all_utt, test_input=None, 
   def get_fail_safe(): 
     return "..."
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/planning_thought_on_convo_v1.txt"
@@ -2721,7 +2760,7 @@ def run_gpt_prompt_memo_on_convo(persona, all_utt, test_input=None, verbose=Fals
 
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 15") ########
-  gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v3_ChatGPT/memo_on_convo_v1.txt" ########
@@ -2736,7 +2775,7 @@ def run_gpt_prompt_memo_on_convo(persona, all_utt, test_input=None, verbose=Fals
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
   # ChatGPT Plugin ===========================================================
 
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   prompt_template = "persona/prompt_template/v2/memo_on_convo_v1.txt"
@@ -2790,7 +2829,7 @@ def run_gpt_generate_safety_score(persona, comment, test_input=None, verbose=Fal
                         __chat_func_validate, __chat_func_clean_up, verbose)
   print (output)
   
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
@@ -2808,7 +2847,6 @@ def extract_first_json_dict(data_str):
 
     # Extract the first JSON dictionary
     json_str = data_str[start_idx:end_idx]
-
     try:
         # Attempt to parse the JSON data
         json_dict = json.loads(json_str)
@@ -2905,26 +2943,675 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
                         __chat_func_validate, __chat_func_clean_up, verbose)
   print (output)
   
-  gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
+def run_gpt_generate_iterative_chat_utt_v2(init_persona, target_persona, retrieved, curr_context, curr_chat, test_input=None, verbose=False): 
+  def create_prompt_input(init_persona, target_persona, retrieved, curr_context, curr_chat, test_input=None):
+    persona = init_persona
+    prev_convo_insert = "\n"
+    if persona.a_mem.seq_chat: 
+      for i in persona.a_mem.seq_chat: 
+        if i.object == target_persona.scratch.name: 
+          v1 = int((persona.scratch.curr_time - i.created).total_seconds()/60)
+          prev_convo_insert += f'{str(v1)} minutes ago, {persona.scratch.name} and {target_persona.scratch.name} were already {i.description} This context takes place after that conversation.'
+          break
+    if prev_convo_insert == "\n": 
+      prev_convo_insert = ""
+    if persona.a_mem.seq_chat: 
+      if int((persona.scratch.curr_time - persona.a_mem.seq_chat[-1].created).total_seconds()/60) > 480: 
+        prev_convo_insert = ""
+    print (prev_convo_insert)
+
+    retrieved_str = ""
+    for key, vals in retrieved.items(): 
+      for v in vals: 
+        retrieved_str += f"- {v.description}\n"
+
+
+    convo_str = ""
+    for i in curr_chat:
+      convo_str += ": ".join(i) + "\n"
+    if convo_str == "": 
+      convo_str = "[The conversation has not started yet -- start it!]"
+
+    init_iss = f"Here is a brief description of {init_persona.scratch.name}.\n{init_persona.scratch.get_str_iss()}"
+    prompt_input = [init_iss, init_persona.scratch.name, retrieved_str, prev_convo_insert,
+      curr_context, init_persona.scratch.name, target_persona.scratch.name,
+      convo_str, init_persona.scratch.name, target_persona.scratch.name,
+      init_persona.scratch.name, init_persona.scratch.name,
+      init_persona.scratch.name
+      ]
+    return prompt_input
+
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+
+    cleaned_dict = dict()
+    cleaned = []
+    for key, val in gpt_response.items(): 
+      cleaned += [val]
+    cleaned_dict["utterance"] = cleaned[0]
+    cleaned_dict["end"] = True
+    if "f" in str(cleaned[1]) or "F" in str(cleaned[1]): 
+      cleaned_dict["end"] = False
+
+    return cleaned_dict
+
+  def __chat_func_validate(gpt_response, prompt=""): 
+    print ("ugh...")
+    try: 
+      # print ("debug 1")
+      # print (gpt_response)
+      # print ("debug 2")
+
+      print (extract_first_json_dict(gpt_response))
+      # print ("debug 3")
+
+      return True
+    except:
+      return False 
+
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["utterance"] = "..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+
+  print ("11")
+  prompt_template = "persona/prompt_template/v3_ChatGPT/iterative_convo_v2.txt" 
+  prompt_input = create_prompt_input(init_persona, target_persona, retrieved, curr_context, curr_chat) 
+  print ("22")
+  prompt = generate_prompt(prompt_input, prompt_template)
+  print (prompt)
+  fail_safe = get_fail_safe() 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe,
+                        __chat_func_validate, __chat_func_clean_up, verbose)
+  print (output)
+  
+  gpt_param = {"engine": "davinci-002", "max_tokens": 50, 
+               "temperature": 0, "top_p": 1, "stream": False,
+               "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
+  return output, [output, prompt, gpt_param, prompt_input, fail_safe]
+
+def run_gpt_generate_iterative_chat_utt_v3(theme, agent_list, relationship, retrieved, curr_chat):
+  def create_prompt_input(theme, agent_list, relationship, retrieved, curr_chat):    
+    iss_str = ""
+    relationship_str = ""
+    retrieved_str = ""
+    agent_name_list = agent_list.values()
+    for agent in agent_name_list:
+      iss_str += f" - {agent.scratch.name}. {agent.scratch.get_str_iss()}\n\n"
+      relationship_str += f"{agent.scratch.name}:\n"
+      for rel_agent, description in relationship[agent.scratch.name].items():
+        relationship_str += f"{rel_agent}: {description}\n"
+      retrieved_str += f"{agent.scratch.name}:\n"
+      for memories in retrieved[agent.scratch.name].values():
+        for mem in memories: 
+          retrieved_str += f"- {mem.description}\n"
+      
+      relationship_str += "\n"
+      retrieved_str += "\n"
+    
+    convo_str = ""
+    for i in curr_chat:
+      convo_str += ": ".join(i) + "\n"
+
+    prompt_input = [theme, iss_str, relationship_str, retrieved_str, convo_str]
+    return prompt_input
+
+  def get_fail_safe(agent_list):
+    cleaned_dict = {}
+    cleaned_dict["greeting"] = "..."
+    cleaned_dict["talking_agent"] = next(iter(agent_list.keys()))
+    return cleaned_dict
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+
+    cleaned_dict = dict()
+    cleaned = []
+    for key, val in gpt_response.items(): 
+      cleaned += [val]
+    cleaned_dict["greeting"] = cleaned[0]
+    cleaned_dict["talking_agent"] = cleaned[1]
+    return cleaned_dict
+  
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      print (extract_first_json_dict(gpt_response))
+      return True
+    except:
+      return False 
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/iterative_convo_v2.txt" 
+  prompt_input = create_prompt_input(theme, agent_list, relationship, retrieved, curr_chat)
+  prompt = generate_prompt(prompt_input, prompt_template, curr_chat)
+
+  fail_safe = get_fail_safe(agent_list) 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+  return ""
+
+def run_gpt_generate_greet_utt(theme, agent_list, relationship, retrieved, curr_chat):
+  def create_prompt_input(theme, agent_list, relationship, retrieved, curr_chat):    
+    iss_str = ""
+    relationship_str = ""
+    retrieved_str = ""
+    agent_name_list = agent_list.values()
+    for agent in agent_name_list:
+      iss_str += f" - {agent.scratch.name}. {agent.scratch.get_str_iss()}\n\n"
+      relationship_str += f"{agent.scratch.name}:\n"
+      for rel_agent, description in relationship[agent.scratch.name].items():
+        relationship_str += f"{rel_agent}: {description}\n"
+      retrieved_str += f"{agent.scratch.name}:\n"
+      for memories in retrieved[agent.scratch.name].values():
+        for mem in memories: 
+          retrieved_str += f"- {mem.description}\n"
+      
+      relationship_str += "\n"
+      retrieved_str += "\n"
+
+    convo_str = ""
+    for i in curr_chat:
+      convo_str += i + "\n"
+
+    prompt_input = [theme, iss_str, relationship_str, retrieved_str, convo_str]
+    return prompt_input
+
+  def get_fail_safe(agent_list):
+    cleaned_dict = {}
+    cleaned_dict["convo"] = "..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+
+    cleaned_dict = dict()
+    cleaned_key = []
+    cleaned_val = []
+    for key, val in gpt_response.items(): 
+      cleaned_key += [key]
+      cleaned_val += [val]
+    cleaned_dict["convo"] = cleaned_key[0] +  ": " + cleaned_val[0]
+    cleaned_dict["end"] = True
+    if "f" in str(cleaned_val[1]) or "F" in str(cleaned_val[1]): 
+      cleaned_dict["end"] = False
+    return cleaned_dict
+  
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      print (extract_first_json_dict(gpt_response))
+      return True
+    except:
+      return False 
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/greeting_convo.txt" 
+  prompt_input = create_prompt_input(theme, agent_list, relationship, retrieved, curr_chat)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe(agent_list) 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+  
+  return output
+
+
+def run_gpt_generate_personal_utt(theme, agent, relationship, retrieved, curr_chat):
+  def create_prompt_input(theme, agent, relationship, retrieved, curr_chat):    
+    agn_str = agent.scratch.name
+    iss_str = agent.scratch.get_str_iss()
+
+    relationship_str = "" 
+    for rel_agent, description in relationship.items():
+      relationship_str += f"{rel_agent}: {description}\n"
+
+    retrieved_str = ""
+    for memories in retrieved.values():
+      for mem in memories: 
+        retrieved_str += f"- {mem.description}\n"
+    
+    convo_str = ""
+    for i in curr_chat:
+      convo_str += i + "\n"
+
+    prompt_input = [agn_str, theme, agn_str, iss_str, agn_str, relationship_str, agn_str, retrieved_str, convo_str, agn_str, agn_str, agn_str]
+    return prompt_input
+
+  def get_fail_safe():
+    return ""
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+    str_memory = ""
+    for val in gpt_response.values(): 
+      str_memory = val
+    return str_memory
+  
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      print (extract_first_json_dict(gpt_response))
+      return True
+    except:
+      return False 
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/memory_convo.txt" 
+  prompt_input = create_prompt_input(theme, agent, relationship, retrieved, curr_chat)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+  return output
+
+def run_gpt_decide_to_respond(theme, curr_chat, a_comment):
+  def create_prompt_input(theme, curr_chat, a_comment): 
+    thoughts_str = "" 
+    for agent, thought in a_comment.items():
+      thoughts_str += f"- {agent}: {thought}\n"
+    
+    convo_str = ""
+    for i in curr_chat:
+      convo_str += i + "\n"
+
+    prompt_input = [theme, convo_str, thoughts_str]
+    return prompt_input
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+
+    cleaned_dict = dict()
+    cleaned_key = []
+    cleaned_val = []
+    for key, val in gpt_response.items(): 
+      cleaned_key += [key]
+      cleaned_val += [val]
+    cleaned_dict["convo"] = cleaned_key[0] +  ": " + cleaned_val[0]
+    cleaned_dict["end"] = True
+    if "f" in str(cleaned_val[1]) or "F" in str(cleaned_val[1]): 
+      cleaned_dict["end"] = False
+    return cleaned_dict
+
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      print (extract_first_json_dict(gpt_response))
+      return True
+    except:
+      return False 
+
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["convo"] = "ackward sielence..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+  
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/decision_convo.txt" 
+  prompt_input = create_prompt_input(theme, curr_chat, a_comment)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  #print(prompt)
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+
+  return output
+
+def run_gpt_estimate_feeling(agent, a_comment, convo):
+  def create_prompt_input(agent, a_comment, convo): 
+    
+    thoughts_str = "" 
+    for agent, thought in a_comment.items():
+      thoughts_str += f"- {agent}: {thought}\n"
+    
+    convo_str = ""
+    for i in curr_chat:
+      convo_str += i + "\n"
+
+    prompt_input = [theme, convo_str, thoughts_str]
+    return prompt_input
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+
+    cleaned_dict = dict()
+    cleaned_key = []
+    cleaned_val = []
+    for key, val in gpt_response.items(): 
+      cleaned_key += [key]
+      cleaned_val += [val]
+    cleaned_dict["convo"] = cleaned_key[0] +  ": " + cleaned_val[0]
+    cleaned_dict["end"] = True
+    if "f" in str(cleaned_val[1]) or "F" in str(cleaned_val[1]): 
+      cleaned_dict["end"] = False
+    return cleaned_dict
+
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      print (extract_first_json_dict(gpt_response))
+      return True
+    except:
+      return False 
+
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["convo"] = "ackward sielence..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+  
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/feeling_convo.txt" 
+  prompt_input = create_prompt_input(agent, a_comment, convo)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  print(prompt)
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+
+  return output
+
+
+def gpt_generate_utt(agent, initial_phrase, relationship, curr_convo, retrieved_nodes, quesiton_task):
+  def create_prompt_input(agent, initial_phrase, relationship, curr_convo, retrieved_nodes, quesiton_task):    
+    
+    agent_name = agent.scratch.name
+
+    agent_iss = agent.scratch.get_str_iss()
+
+    relationship_str = "" 
+    for a_name, description in relationship.items():
+      relationship_str += f" - {a_name}: {description}\n"
+
+    curr_convo_str = ""
+    for convo in curr_convo:
+      curr_convo_str += convo + "\n"
+
+    retrieved_nodes_str = ""
+    for node in retrieved_nodes:
+      retrieved_nodes_str += f"- {node.created} - {node.description}\n"
+    
+    prompt_input = [initial_phrase, agent_name, agent_iss, agent_name, relationship_str, curr_convo_str, agent_name, retrieved_nodes_str, quesiton_task, agent_name]
+    return prompt_input
+
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["convo"] = "ackward sielence..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+    cleaned_dict = dict()
+    cleaned_key = []
+    cleaned_val = []
+    print("t_flag1_i")
+    print(gpt_response)
+    for key, val in gpt_response.items(): 
+      cleaned_key += [key]
+      cleaned_val += [val]
+    
+    print("t_flag2_i")
+    cleaned_dict["convo"] = cleaned_key[0] +  ": " + cleaned_val[0]
+    cleaned_dict["end"] = True
+    if "f" in str(cleaned_val[1]) or "F" in str(cleaned_val[1]): 
+      cleaned_dict["end"] = False
+    
+    return cleaned_dict
+  
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      extract_first_json_dict(gpt_response)
+      return True
+    except:
+      return False 
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/generate_chat_utt.txt" 
+  prompt_input = create_prompt_input(agent, initial_phrase, relationship, curr_convo, retrieved_nodes, quesiton_task)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+  return output
+
+def gpt_estimate_emotion(phrase, emotions):
+  def create_prompt_input(phrase, emotions):    
+
+    str_emotions = "[" 
+    for emotion in emotions:
+      str_emotions += f" {emotion},"
+    str_emotions += "]"
+    
+    prompt_input = [phrase, str_emotions]
+    return prompt_input
+
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["convo"] = "ackward sielence..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+    cleaned_dict = dict()
+    cleaned_key = []
+    cleaned_val = []
+    print(gpt_response)
+    for key, val in gpt_response.items(): 
+      cleaned_key += [key]
+      cleaned_val += [val]
+    
+    cleaned_dict["emtion"] = cleaned_val[0]
+    cleaned_dict["certainty"] = float(cleaned_val[1])
+    
+    return cleaned_dict
+  
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      extract_first_json_dict(gpt_response)
+      return True
+    except:
+      return False 
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/sentimental_estimation.txt" 
+  prompt_input = create_prompt_input(phrase, emotions)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  print(prompt)
+  fail_safe = get_fail_safe() 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+  return output
 
 
 
+def gpt_generate_emotional_utt(agent, initial_phrase, relationship, curr_convo, retrieved_nodes, quesiton_task):
+  def create_prompt_input(agent, initial_phrase, relationship, curr_convo, retrieved_nodes, quesiton_task):    
+    
+    agent_name = agent.scratch.name
+
+    agent_iss = agent.scratch.get_str_iss()
+
+    agent_emotions = agent.scratch.get_str_emotions()
+
+    relationship_str = "" 
+    for a_name, description in relationship.items():
+      relationship_str += f" - {a_name}: {description}\n"
+
+    curr_convo_str = ""
+    for convo in curr_convo:
+      curr_convo_str += convo + "\n"
+
+    retrieved_nodes_str = ""
+    for node in retrieved_nodes:
+      retrieved_nodes_str += f"- {node.created} - {node.description}\n"
+    
+    prompt_input = [initial_phrase, agent_name, agent_iss, agent_name, relationship_str, curr_convo_str, agent_name, retrieved_nodes_str, quesiton_task, agent_name, agent_emotions, agent_name]
+    return prompt_input
+
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["convo"] = "ackward sielence..."
+    cleaned_dict["end"] = False
+    return cleaned_dict
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+    cleaned_dict = dict()
+    cleaned_key = []
+    cleaned_val = []
+    print("t_flag1_i")
+    print(gpt_response)
+    for key, val in gpt_response.items(): 
+      cleaned_key += [key]
+      cleaned_val += [val]
+    
+    print("t_flag2_i")
+    cleaned_dict["convo"] = cleaned_key[0] +  ": " + cleaned_val[0]
+    cleaned_dict["end"] = True
+    if "f" in str(cleaned_val[1]) or "F" in str(cleaned_val[1]): 
+      cleaned_dict["end"] = False
+    
+    return cleaned_dict
+  
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      extract_first_json_dict(gpt_response)
+      return True
+    except:
+      return False 
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/generate_emotional_chat_utt.txt" 
+  prompt_input = create_prompt_input(agent, initial_phrase, relationship, curr_convo, retrieved_nodes, quesiton_task)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+  return output
 
 
+def run_gpt_identify_question(phrase):
+  def create_prompt_input(phrase): 
+
+    prompt_input = [phrase]
+    return prompt_input
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+    cleaned_val = []
+    for val in gpt_response.values(): 
+      cleaned_val += [val]
+
+    if "f" in str(cleaned_val[0]) or "F" in str(cleaned_val[0]):
+      return False
+    else:
+      return True
+
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      extract_first_json_dict(gpt_response)
+      return True
+    except:
+      return False 
+
+  def get_fail_safe():
+    return False
+  
+
+  prompt_template = "persona/prompt_template/v3_ChatGPT/question_classifier.txt" 
+  prompt_input = create_prompt_input(phrase)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  #print(prompt)
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
+
+  return output
 
 
+def run_gpt_classify_phrase(curr_time, curr_chat):
+  def create_prompt_input(curr_time, curr_chat): 
+    convo_str = ""
+    for phrase in curr_chat:
+      convo_str += phrase + "\n"
 
+    prompt_input = [curr_time.strftime("%Y-%m-%d %H:%M:%S"), convo_str]
+    return prompt_input
+  
+  def __chat_func_clean_up(gpt_response, prompt=""): 
+    gpt_response = extract_first_json_dict(gpt_response)
+    cleaned_dict = dict()
+    cleaned_val = []
+    for _, val in gpt_response.items(): 
+      cleaned_val += [val]
+    
+    print("cleaned val", cleaned_val)
+    print("i_flag_1")
+    cleaned_dict["personal"] = cleaned_val[0]
+    print("i_flag_2")
+    cleaned_dict["themed"] = True
+    if "f" in str(cleaned_val[1]) or "F" in str(cleaned_val[1]):
+      cleaned_dict["themed"] = False
+    print("i_flag_3")
+    cleaned_dict["time"] = True
+    if "f" in str(cleaned_val[2]) or "F" in str(cleaned_val[2]):
+      cleaned_dict["time"] = False
+    print("i_flag_4")
+    if cleaned_dict["time"]:
+      if cleaned_val[3] == "":
+        print("i_flag_5")
+        cleaned_dict["initial_date"] = None
+        cleaned_dict["final_date"] = None
+      else:
+        print("i_flag_6")
+        cleaned_dict["initial_date"] = datetime.datetime.strptime(cleaned_val[3], "%Y-%m-%d").date()
+        cleaned_dict["final_date"] = datetime.datetime.strptime(cleaned_val[4], "%Y-%m-%d").date()
+      print("i_flag_7")
+      if cleaned_val[5] == "":
+        cleaned_dict["initial_hour"] = None
+        cleaned_dict["final_hour"] = None
 
+      else:
+        cleaned_dict["initial_hour"] = datetime.datetime.strptime(cleaned_val[5], "%H:%M:%S").time()
+        cleaned_dict["final_hour"] = datetime.datetime.strptime(cleaned_val[6], "%H:%M:%S").time()
 
+    return cleaned_dict
 
+  def __chat_func_validate(gpt_response, prompt=""): 
+    try: 
+      extract_first_json_dict(gpt_response)
+      return True
+    except:
+      return False 
 
+  def get_fail_safe():
+    cleaned_dict = dict()
+    cleaned_dict["personal"] = "" 
+    cleaned_dict["themed"] = True
+    cleaned_dict["time"] = False
+    cleaned_dict["initial_date"] = None
+    cleaned_dict["final_date"] = None
+    cleaned_dict["initial_hour"] = None
+    cleaned_dict["final_hour"] = None
+    return cleaned_dict
+  
 
+  prompt_template = "persona/prompt_template/v3_ChatGPT/classify_phrase_type.txt" 
+  prompt_input = create_prompt_input(curr_time, curr_chat)
+  #print(prompt_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe() 
+  #print(prompt)
+  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe, 
+                                              __chat_func_validate, __chat_func_clean_up)
 
-
+  return output
 
 
 

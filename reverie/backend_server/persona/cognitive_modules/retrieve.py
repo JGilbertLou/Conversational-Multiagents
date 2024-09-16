@@ -4,10 +4,15 @@ Author: Joon Sung Park (joonspk@stanford.edu)
 File: retrieve.py
 Description: This defines the "Retrieve" module for generative agents. 
 """
+
+
 import sys
 sys.path.append('../../')
 
+import numpy as np
+
 from global_methods import *
+from persona.text_processing import *
 from persona.prompt_template.gpt_structure import *
 
 from numpy import dot
@@ -45,6 +50,114 @@ def retrieve(persona, perceived):
     
   return retrieved
 
+def ag_retrieve(agent, target_agent, n_count=30):
+  day_hippo_nodes = [[hippo_node.last_accessed, hippo_node] for hippo_node in agent.c_mem.id_to_node.values() if "idle" not in hippo_node.embedding_key]
+  day_hippo_nodes = sorted(day_hippo_nodes, key=lambda x: x[0])
+  #hippo_nodes = [hippo_node for _, hippo_node in day_hippo_nodes if target_agent in hippo_node.keywords]
+  hippo_nodes = []
+  added_desc = set()
+  
+  for _ , hippo_node in day_hippo_nodes:
+    if hippo_node.description not in added_desc:
+      if target_agent in hippo_node.keywords:
+        hippo_nodes.append(hippo_node)
+        added_desc.add(hippo_node.description)
+  
+  return hippo_nodes[:n_count]
+
+def priority_retrieve(agent, time_interval, first_date, last_date, initial_hour, last_hour, n_count=30):
+  context_nodes = []
+
+  day_hippo_nodes = [[hippo_node.last_accessed, hippo_node] for hippo_node in agent.c_mem.id_to_node.values() if "idle" not in hippo_node.embedding_key]
+  
+  day_hippo_nodes = sorted(day_hippo_nodes, key=lambda x: x[0])
+  
+  hippo_nodes = []
+  added_keys = set()
+
+  for _ , hippo_node in day_hippo_nodes:
+      if hippo_node.embedding_key not in added_keys:
+        hippo_nodes.append(hippo_node)
+        added_keys.add(hippo_node.embedding_key)
+
+  if time_interval:
+    if first_date is not None:
+      hippo_nodes = [hippo_node for hippo_node in hippo_nodes if (hippo_node.created.date() >= first_date and hippo_node.created.date() <= last_date and hippo_node.created.time() >= initial_hour and hippo_node.created.time() <= last_hour)]
+    else:
+      hippo_nodes = [hippo_node for hippo_node in hippo_nodes if (hippo_node.created.time() >= initial_hour and hippo_node.created.time() <= last_hour)]
+    
+  recency_out = extract_recency(agent, hippo_nodes)
+  recency_out = normalize_dict_floats(recency_out, 0, 1)
+
+  importance_out = extract_importance(agent, hippo_nodes)
+  importance_out = normalize_dict_floats(importance_out, 0, 1) 
+  
+
+  gw = [0.3, 0.7]
+  master_out = dict()
+  for key in recency_out.keys(): 
+    master_out[key] = (agent.scratch.recency_w*recency_out[key]*gw[0] 
+                    + agent.scratch.importance_w*importance_out[key]*gw[1])
+  
+  master_out = top_highest_x_values(master_out, n_count)
+  for key, val in master_out.items(): 
+    #print (agent.c_mem.id_to_node[key].created, agent.c_mem.id_to_node[key].embedding_key, val)
+    context_nodes.append(agent.c_mem.id_to_node[key])
+
+  return context_nodes
+
+def sim_retrieve(agent, focal_keywords, time_interval, first_date, last_date, initial_hour, last_hour, n_count=10): 
+  context_nodes = []
+  avg_cos_sim = 0
+
+  day_hippo_nodes = [[hippo_node.last_accessed, hippo_node] for hippo_node in agent.c_mem.id_to_node.values() if "idle" not in hippo_node.embedding_key]
+  
+  day_hippo_nodes = sorted(day_hippo_nodes, key=lambda x: x[0])
+
+  hippo_nodes = []
+  added_keys = set()
+  
+  for _ , hippo_node in day_hippo_nodes:
+    if hippo_node.embedding_key not in added_keys:
+      hippo_nodes.append(hippo_node)
+      added_keys.add(hippo_node.embedding_key)
+
+  if time_interval:
+    if first_date is not None:
+      hippo_nodes = [hippo_node for hippo_node in hippo_nodes if (hippo_node.created.date() >= first_date and hippo_node.created.date() <= last_date and hippo_node.created.time() >= initial_hour and hippo_node.created.time() <= last_hour)]
+    else:
+      hippo_nodes = [hippo_node for hippo_node in hippo_nodes if (hippo_node.created.time() >= initial_hour and hippo_node.created.time() <= last_hour)]
+    
+
+  recency_out = extract_recency(agent, hippo_nodes)
+  recency_out = normalize_dict_floats(recency_out, 0, 1)
+
+  importance_out = extract_importance(agent, hippo_nodes)
+  importance_out = normalize_dict_floats(importance_out, 0, 1) 
+
+  relevance_out = extract_relevance_v2(agent, hippo_nodes, focal_keywords)
+
+# comparativa escoger pesos
+
+  #gw = [0.1, 0.85, 0.05]
+  gw = [0, 1, 0]
+  master_out = dict()
+  for key in relevance_out.keys(): 
+    master_out[key] = (agent.scratch.recency_w*recency_out[key]*gw[0] 
+                    + agent.scratch.relevance_w*relevance_out[key]*gw[1] 
+                    + agent.scratch.importance_w*importance_out[key]*gw[2])
+  
+  master_out = top_highest_x_values(master_out, n_count)
+  for key, val in master_out.items(): 
+    print (agent.c_mem.id_to_node[key].embedding_key, val)
+    context_nodes.append(agent.c_mem.id_to_node[key])
+    avg_cos_sim += val
+
+  print(f"Avg. Cosine Similarity: {avg_cos_sim / len(context_nodes)}")
+  if len(context_nodes) == 0:
+    return [], 0
+  else:
+    return context_nodes, avg_cos_sim / len(context_nodes)
 
 def cos_sim(a, b): 
   """
@@ -100,7 +213,7 @@ def normalize_dict_floats(d, target_min, target_max):
   else: 
     for key, val in d.items():
       d[key] = ((val - min_val) * (target_max - target_min) 
-                / range_val + target_min)
+                / range_val + target_min) + 0.01
   return d
 
 
@@ -148,7 +261,7 @@ def extract_recency(persona, nodes):
   recency_out = dict()
   for count, node in enumerate(nodes): 
     recency_out[node.node_id] = recency_vals[count]
-
+    
   return recency_out
 
 
@@ -171,6 +284,10 @@ def extract_importance(persona, nodes):
 
   return importance_out
 
+def new_extract_relevance():
+  relevance_out = dict()
+
+  return relevance_out
 
 def extract_relevance(persona, nodes, focal_pt): 
   """
@@ -194,6 +311,37 @@ def extract_relevance(persona, nodes, focal_pt):
     relevance_out[node.node_id] = cos_sim(node_embedding, focal_embedding)
 
   return relevance_out
+
+def extract_relevance_v2(agent, hippo_nodes, keywords_embeddings):
+  relevance_out = dict()
+
+  focal_embedding_vector = np.array(keywords_embeddings)
+  focal_embedding_vector = focal_embedding_vector.reshape(-1, focal_embedding_vector.shape[-1])
+
+  mem_embedding_vectors = np.array([agent.c_mem.embeddings[hippo_node.embedding_key] for hippo_node in hippo_nodes])
+  # comprobar que devuelve lo correcto
+  mem_embedding_vectors = mem_embedding_vectors.reshape(-1, mem_embedding_vectors.shape[-1])
+  matrix_cos_sim = matrix_cosine_sim(focal_embedding_vector, mem_embedding_vectors)
+
+  flattened_idx = [(i, j, matrix_cos_sim[i][j]) 
+                          for i in range(matrix_cos_sim.shape[0]) 
+                          for j in range(matrix_cos_sim.shape[1])]
+
+  sorted_i = sorted(flattened_idx, key=lambda x: x[2], reverse=True)
+
+  max_value = sorted_i[0][2]
+
+  min_sim_value = min(0.8, max_value - 0.1)
+
+  for m_i, n_i, cos_sim in sorted_i:
+    if (min_sim_value) > cos_sim:
+      break
+    
+    if hippo_nodes[n_i].node_id not in relevance_out.keys():
+      relevance_out[hippo_nodes[n_i].node_id] = cos_sim
+
+  return relevance_out
+
 
 
 def new_retrieve(persona, focal_points, n_count=30): 
@@ -224,15 +372,17 @@ def new_retrieve(persona, focal_points, n_count=30):
     nodes = [[i.last_accessed, i]
               for i in persona.a_mem.seq_event + persona.a_mem.seq_thought
               if "idle" not in i.embedding_key]
+    # Ordena por fechay hora
     nodes = sorted(nodes, key=lambda x: x[0])
+    # Quita la fecha y hora
     nodes = [i for created, i in nodes]
-
     # Calculating the component dictionaries and normalizing them.
     recency_out = extract_recency(persona, nodes)
     recency_out = normalize_dict_floats(recency_out, 0, 1)
+    # print(recency_out.keys())
     importance_out = extract_importance(persona, nodes)
     importance_out = normalize_dict_floats(importance_out, 0, 1)  
-    relevance_out = extract_relevance(persona, nodes, focal_pt)
+    relevance_out = extract_relevance(persona, nodes, focal_pt) 
     relevance_out = normalize_dict_floats(relevance_out, 0, 1)
 
     # Computing the final scores that combines the component values. 
@@ -254,7 +404,6 @@ def new_retrieve(persona, focal_points, n_count=30):
       print (persona.scratch.recency_w*recency_out[key]*1, 
              persona.scratch.relevance_w*relevance_out[key]*1, 
              persona.scratch.importance_w*importance_out[key]*1)
-
     # Extracting the highest x values.
     # <master_out> has the key of node.id and value of float. Once we get the 
     # highest x values, we want to translate the node.id into nodes and return
@@ -270,7 +419,96 @@ def new_retrieve(persona, focal_points, n_count=30):
 
   return retrieved
 
+def new_retrieve_2 (persona, focal_points, n_count=10): 
+  """
+  Given the current persona and focal points (focal points are events or 
+  thoughts for which we are retrieving), we retrieve a set of nodes for each
+  of the focal points and return a dictionary. 
 
+  INPUT: 
+    persona: The current persona object whose memory we are retrieving. 
+    focal_points: A list of focal points (string description of the events or
+                  thoughts that is the focus of current retrieval).
+  OUTPUT: 
+    retrieved: A dictionary whose keys are a string focal point, and whose 
+               values are a list of Node object in the agent's associative 
+               memory.
+
+  Example input:
+    persona = <persona> object 
+    focal_points = ["How are you?", "Jane is swimming in the pond"]
+  """
+  # <retrieved> is the main dictionary that we are returning
+  retrieved = dict() 
+  for focal_pt in focal_points: 
+    # Getting all nodes from the agent's memory (both thoughts and events) and
+    # sorting them by the datetime of creation.
+    # You could also imagine getting the raw conversation, but for now. 
+    nodes = [[i.last_accessed, i]
+              for i in persona.a_mem.seq_event + persona.a_mem.seq_thought
+              if "idle" not in i.embedding_key]
+    
+    
+    if len(nodes) > 0 :
+
+      nodes = sorted(nodes, key=lambda x: x[0])
+      # Quita la fecha y hora
+      #nodes = [i for created, i in nodes]
+
+      hippo_nodes = []
+      added_keys = set()
+
+      for _ , hippo_node in nodes:
+        if hippo_node.embedding_key not in added_keys:
+          hippo_nodes.append(hippo_node)
+          added_keys.add(hippo_node.embedding_key)
+      # Calculating the component dictionaries and normalizing them.
+      recency_out = extract_recency(persona, hippo_nodes)
+      recency_out = normalize_dict_floats(recency_out, 0, 1)
+      # print(recency_out.keys())
+      importance_out = extract_importance(persona, hippo_nodes)
+      importance_out = normalize_dict_floats(importance_out, 0, 1)  
+      relevance_out = extract_relevance(persona, hippo_nodes, focal_pt) 
+      #relevance_out = normalize_dict_floats(relevance_out, 0, 1)
+
+      # Computing the final scores that combines the component values. 
+      # Note to self: test out different weights. [1, 1, 1] tends to work
+      # decently, but in the future, these weights should likely be learned, 
+      # perhaps through an RL-like process.
+      # gw = [1, 1, 1]
+      # gw = [1, 2, 1]
+      #gw = [0.5, 3, 2]
+      gw = [0, 0.99, 0]
+      master_out = dict()
+      for key in recency_out.keys(): 
+        master_out[key] = (persona.scratch.recency_w*recency_out[key]*gw[0] 
+                      + persona.scratch.relevance_w*relevance_out[key]*gw[1] 
+                      + persona.scratch.importance_w*importance_out[key]*gw[2])
+
+      master_out = top_highest_x_values(master_out, len(master_out.keys()))
+      #for key, val in master_out.items(): 
+        #print (persona.a_mem.id_to_node[key].embedding_key, val)
+        #print (persona.scratch.recency_w*recency_out[key]*1, 
+              #persona.scratch.relevance_w*relevance_out[key]*1, 
+              # persona.scratch.importance_w*importance_out[key]*1)
+      # Extracting the highest x values.
+      # <master_out> has the key of node.id and value of float. Once we get the 
+      # highest x values, we want to translate the node.id into nodes and return
+      # the list of nodes.
+      master_out = top_highest_x_values(master_out, n_count)
+      master_nodes = [persona.a_mem.id_to_node[key] 
+                      for key in list(master_out.keys())]
+
+      for n in master_nodes: 
+        n.last_accessed = persona.scratch.curr_time
+
+      for key, val in master_out.items(): 
+        print (persona.a_mem.id_to_node[key].embedding_key, val)
+        
+        
+      retrieved[focal_pt] = master_nodes
+
+  return retrieved
 
 
 

@@ -1,0 +1,35 @@
+greeting_convo.txt
+
+Variables: 
+!<INPUT 0>! -- theme 
+!<INPUT 1>! -- personas ISS 
+!<INPUT 2>! -- persona relationship 
+!<INPUT 3>! -- retrieved memory
+!<INPUT 4>! -- curr conversation
+<commentblockmarker>###</commentblockmarker>
+Context for the task: 
+
+PART 1. 
+A group of people are having a conversation about !<INPUT 0>!
+
+Here is a brief description of each person:
+!<INPUT 1>!
+
+These is the relationship between each member:
+!<INPUT 2>!
+
+Here is what is in the head of each person:
+!<INPUT 3>!
+
+PART 2. 
+Here is how the conversation is going so far:
+!<INPUT 4>!
+
+---
+Task: Given the above, who should talk next and what should that person say? did it end the conversation?
+
+Output format: Output a json of the following format, where Person Name could be any of the group: 
+{
+"<Person's Name>": "Person's utterance>",
+"Did the conversation end with Person's utterance?": "<json Boolean>"
+}

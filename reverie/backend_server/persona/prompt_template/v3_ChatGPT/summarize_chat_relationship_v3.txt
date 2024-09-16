@@ -1,0 +1,17 @@
+summarize_chat_relationship_v2.txt
+
+Variables: 
+!<INPUT 0>! -- Statements
+!<INPUT 1>! -- curr persona name
+!<INPUT 2>! -- target_persona.scratch.name
+!<INPUT 3>! -- curr persona name
+!<INPUT 4>! -- target_persona.scratch.name
+
+<commentblockmarker>###</commentblockmarker>
+[Statements]
+!<INPUT 0>!
+
+Based on the statements above, summarize !<INPUT 1>! and !<INPUT 2>!'s relationship in three short sentences. What are they? What does !<INPUT 3>! feel or know about !<INPUT 4>!?
+
+
+"

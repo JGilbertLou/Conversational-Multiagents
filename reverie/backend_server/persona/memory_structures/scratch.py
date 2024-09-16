@@ -158,6 +158,12 @@ class Scratch:
     # e.g., [(50, 10), (49, 10), (48, 10), ...]
     self.planned_path = []
 
+    self.personality = dict()
+
+    self.stimulus_coef = dict()
+
+    self.emotions = dict()
+
     if check_if_file_exists(f_saved): 
       # If we have a bootstrap file, load that here. 
       scratch_load = json.load(open(f_saved))
@@ -232,6 +238,33 @@ class Scratch:
 
       self.act_path_set = scratch_load["act_path_set"]
       self.planned_path = scratch_load["planned_path"]
+      
+      self.personality = scratch_load["personality"]
+      
+      
+      interaction_matrix = {
+                          "joy": {"joy": 0.9, "sadness": -0.4, "anger": -0.4, "fear": -0.4},
+                          "sadness": {"joy": -0.5, "sadness": 0.9, "anger": 0.4, "fear": 0.4},
+                          "anger": {"joy": -0.5, "sadness": 0.4, "anger": 0.9, "fear": 0.2},
+                          "fear": {"joy": -0.4, "sadness": 0.3, "anger": 0.2, "fear": 0.9},
+                          "love": {"joy": 0.8, "sadness": 0.4, "anger": -0.5, "fear": -0.4},
+                          "surprise": {"joy": 0.7, "sadness": 0.2, "anger": 0.3, "fear": 0.6}
+                        }
+      
+      personality_coef = dict()
+      personality_coef["joy"] =  self.personality["extraversion"]*0.4 + self.personality["agreeableness"]*0.4 - self.personality["neuroticism"]*0.2
+      personality_coef["sadness"] = self.personality["neuroticism"]*0.6 + self.personality["agreeableness"]*0.4
+      personality_coef["anger"] = self.personality["neuroticism"]
+      personality_coef["fear"] =  self.personality["neuroticism"]*0.8 - self.personality["openness"]*0.2
+
+
+      for stimulus, emotion_convo_coef in interaction_matrix.items():
+        self.stimulus_coef[stimulus] = dict()
+        for emotion, convo_coef in emotion_convo_coef.items():
+          self.stimulus_coef[stimulus][emotion] = convo_coef * personality_coef[emotion]
+
+
+      self.emotions = scratch_load["emotions"]
 
 
   def save(self, out_json):
@@ -615,6 +648,21 @@ class Scratch:
       minute = curr_min_sum%60
       ret += f"{hour:02}:{minute:02} || {row[0]}\n"
     return ret
+  
+  def update_emotions(self, stimulus, intensity):
+    for emotion in self.emotions.keys():
+      self.emotions[emotion] = max(0.0, min(1.0, self.emotions[emotion] + self.stimulus_coef[stimulus][emotion] * intensity))
+
+  def get_str_emotions(self):
+    em = ""
+    max_val = 0
+    for emotion, val in self.emotions.items():
+      if max_val < val:
+        em = emotion
+        max_val = val
+
+    return em
+
 
 
 
