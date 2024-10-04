@@ -43,14 +43,6 @@ from persona.prompt_template.gpt_structure import *
 from persona.cognitive_modules.converse import *
 from persona.memory_structures.associative_memory import *
 from persona.text_processing import *
-
-from transformers import BertTokenizer, BertModel, BartTokenizer, BartModel, RagTokenizer, RagRetriever, RagSequenceForGeneration, DPRQuestionEncoderTokenizer, DPRQuestionEncoder, RobertaTokenizer, RobertaModel
-from sklearn.metrics.pairwise import cosine_similarity
-from datasets import load_dataset
-from sentence_transformers import SentenceTransformer
-import faiss
-import nltk
-from rake_nltk import Rake
 #nltk.download('punkt')
 
 ##############################################################################
@@ -1009,7 +1001,7 @@ class ConferenceServer:
 
   
 
-    orchestrator = Orchestrator("", False)
+    orchestrator = Orchestrator("research paper", False)
 
     free_agents = list(self.agents.keys())
     convo_agents = []

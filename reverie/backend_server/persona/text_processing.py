@@ -21,10 +21,7 @@ from persona.prompt_template.run_gpt_prompt import *
 
 from transformers import BertTokenizer, BertModel, BartTokenizer, BartModel, pipeline
 from sklearn.metrics.pairwise import cosine_similarity
-from datasets import load_dataset
 from sentence_transformers import SentenceTransformer
-import faiss
-import nltk
 from rake_nltk import Rake
 
 rake = Rake()

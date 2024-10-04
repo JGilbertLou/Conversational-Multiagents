@@ -69,3 +69,5 @@ zipp==3.6.0
 transformers
 torch
 scikit-learn
+sentence-transformers
+rake-nltk
